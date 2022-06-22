@@ -1,5 +1,6 @@
 package com.example.SpotifyApi.servise;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.UUID;
@@ -20,7 +21,8 @@ public class ArtistsServiceImpl implements ArtistsService{
 	private ArtistRepository artistRepository;
 	
 	@Override
-	public ArtistResponse createArtist(ArtistEntity artist) {
+	public ArtistResponse createArtist(ArtistEntity artist) { 
+		
 		String uniqueID = UUID.randomUUID().toString();	
 		Artist artistModel = new Artist();
 		artistModel.setAge(artist.getAge());
@@ -41,19 +43,23 @@ public class ArtistsServiceImpl implements ArtistsService{
 
 	@Override
 	public Artist getArtist(String id) {
-		// TODO Auto-generated method stub
+		
 		return artistRepository.getArtist(id);
 	}
 
 	@Override
 	public void updateArtist(String id, ArtistEntity artistEntity) {
-		// TODO Auto-generated method stub
+		
 		// artistRepository.updateArtist(id, artistEntity);
 	}
 
 	@Override
 	public void deleteArtist(String id) {
-		// TODO Auto-generated method stub
-		artistRepository.deleteArtist(id);
+		
+		try {
+			artistRepository.deleteArtist(id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

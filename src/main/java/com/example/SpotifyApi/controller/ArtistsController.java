@@ -1,7 +1,6 @@
 package com.example.SpotifyApi.controller;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.SpotifyApi.entities.ArtistEntity;
@@ -42,18 +40,20 @@ public class ArtistsController  {
 	
 	@PostMapping
 	public ResponseEntity <ArtistResponse> addArtist(@RequestBody ArtistEntity artist){
-		ArtistResponse resp = artistService.createArtist(artist);
-	
-		return new ResponseEntity<>(resp, HttpStatus.CREATED);
+		
+		return new ResponseEntity<>(artistService.createArtist(artist), HttpStatus.CREATED);
 	}	
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> updateArtist(@PathVariable String id){
 		return new ResponseEntity<>( HttpStatus.NO_CONTENT);
 		
 	}	
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteArtist(@PathVariable String id){
-		return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+		artistService.deleteArtist(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
 	}	
 

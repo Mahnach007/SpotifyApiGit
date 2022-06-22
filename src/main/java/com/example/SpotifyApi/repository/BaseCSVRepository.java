@@ -15,26 +15,31 @@
 //
 //public abstract class BaseCSVRepository {
 //	
-//	private void readCsvToHashMap(Entity entity) throws IllegalStateException, IOException{
+//	private void readCsvToHashMap(String fileFolderName, String fileEntityName, Class modelClassName) throws IllegalStateException, IOException{
 //		
 //		Month currentMonth = LocalDate.now().getMonth();//Getting the current month
-//	    File folder = new File("/Users/Vlad/eclipse-workspace/SpotifyApi/SpotifyApiGit/src/main/resources/artistCSV");
+//	    File folder = new File("src/main/resources/" + fileFolderName);
 //	    String[] listOfFiles = folder.list();
+//	    
 //	    for (String name : listOfFiles) {
-//	    	String date = name.split("artist-")[1].split(".csv")[0];
+//	    	try {
+//	    	String date = name.split(fileEntityName + "-")[1].split(".csv")[0];
 //	    	LocalDate date1 = LocalDate.parse(date);
 //	    	if (currentMonth.getValue() == date1.getMonthValue()){
-//	    		HeaderColumnNameMappingStrategy<Artist> ms = new HeaderColumnNameMappingStrategy<>();
-//	    		ms.setType(Artist.class);
-//	    		CsvToBean<Artist> bean = new CsvToBeanBuilder<Artist>(new FileReader(folder.getPath() + "/" + name)).withMappingStrategy(ms).withIgnoreLeadingWhiteSpace(true).build();
-//	    		List<Artist> list = bean.parse();
-//	    		for( Artist artist : list ) {
-//	    
-//	    	        artists.put(artist.getId(), artist);
-//	    	    }
+//	    		HeaderColumnNameMappingStrategy<modelClassName> ms = new HeaderColumnNameMappingStrategy<>();
+//	    		ms.setType(modelClassName.class);
+//	    		CsvToBean<modelClassName> bean = new CsvToBeanBuilder<modelClassName>(new FileReader(folder.getPath() + "/" + name)).withMappingStrategy(ms).withIgnoreLeadingWhiteSpace(true).build();
+//	    		List<modelClassName> list = bean.parse();
+//		    	for( modelClassName artist : list ) {
+//		    		artists.put(artist.getId(), artist);
+//		    	}
 //	    	}
-//	
 //	    }
+//		    catch(Exception e) {
+//		    System.out.println("Ignoring");
+//		    }
+//	    }
+//	}
 //
 //}
-//}
+
