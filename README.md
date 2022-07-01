@@ -29,7 +29,8 @@ Link - https://www.postman.com/mahnach007/workspace/spotifyapi/collection/215265
 Get all entities of this type(GET):
 
 getAll() - returns all entities corresponding to this service
-http://localhost:8081/album
+http://localhost:8081/album 
+
 http://localhost:8081/artists
 http://localhost:8081/song
 http://localhost:8081/label
