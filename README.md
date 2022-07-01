@@ -31,38 +31,38 @@ Get all entities of this type(GET):
 getAll() - returns all entities corresponding to this service <br />
 http://localhost:8081/album 
 
-http://localhost:8081/artists
-http://localhost:8081/song
-http://localhost:8081/label
-http://localhost:8081/text
+http://localhost:8081/artists<br />
+http://localhost:8081/song<br />
+http://localhost:8081/label<br />
+http://localhost:8081/text<br />
 
 Get the object of a certain type by id(GET):
 
-http://localhost:8081/album/{id}
-http://http://localhost:8081/artists{id}
-http://http://localhost:8081/song{id}
-http://http://localhost:8081/label{id}
-http://http://localhost:8081/text{id}
+http://localhost:8081/album/{id}<br />
+http://http://localhost:8081/artists{id}<br />
+http://http://localhost:8081/song{id}<br />
+http://http://localhost:8081/label{id}<br />
+http://http://localhost:8081/text{id}<br />
 
 Create the object of this type(POST):
 
-http://localhost:8081/album
-http://localhost:8081/artists
-http://localhost:8081/song
-http://localhost:8081/label
-http://localhost:8081/text
+http://localhost:8081/album<br />
+http://localhost:8081/artists<br />
+http://localhost:8081/song<br />
+http://localhost:8081/label<br />
+http://localhost:8081/text<br />
 Edit the object of this type by id(PUT):
 
-http://localhost:8081/album/{id}
-http://http://localhost:8081/artists{id}
-http://http://localhost:8081/song{id}
-http://http://localhost:8081/label{id}
-http://http://localhost:8081/text{id}
+http://localhost:8081/album/{id}<br />
+http://http://localhost:8081/artists{id}<br />
+http://http://localhost:8081/song{id}<br />
+http://http://localhost:8081/label{id}<br />
+http://http://localhost:8081/text{id}<br />
 
 Delete the object of this type by id(DELETE):
 
-http://localhost:8081/album/{id}
-http://http://localhost:8081/artists{id}
-http://http://localhost:8081/song{id}
-http://http://localhost:8081/label{id}
-http://http://localhost:8081/text{id}
+http://localhost:8081/album/{id}<br />
+http://http://localhost:8081/artists{id}<br />
+http://http://localhost:8081/song{id}<br />
+http://http://localhost:8081/label{id}<br />
+http://http://localhost:8081/text{id}<br />
