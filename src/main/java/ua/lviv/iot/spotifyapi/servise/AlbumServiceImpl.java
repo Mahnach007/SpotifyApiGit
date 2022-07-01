@@ -1,0 +1,64 @@
+package ua.lviv.iot.spotifyapi.servise;
+
+import java.io.IOException;
+
+
+import java.util.ArrayList;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ua.lviv.iot.spotifyapi.model.Album;
+import ua.lviv.iot.spotifyapi.repository.AlbumRepository;
+
+@Service
+public class AlbumServiceImpl implements AlbumService {
+
+	@Autowired
+	private AlbumRepository albumRepository;
+
+	private long idCounter = 1L;
+
+	@Override
+	public Album createAlbum(Album album) {
+		album.setId(idCounter++);
+		albumRepository.addAlbum(album);
+		return album;
+	}
+
+	@Override
+	public ArrayList<Album> getAllAlbums() {
+		return albumRepository.getAllAlbums();
+	}
+
+	@Override
+	public Album getAlbum(long id) {
+		return albumRepository.getAlbum(id);
+	}
+
+	@Override
+	public Boolean updateAlbum(long id, Album album) {
+
+		Boolean ifExist = false;
+
+		try {
+			ifExist = albumRepository.updateAlbum(id, album);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ifExist;
+	}
+
+	@Override
+	public Boolean deleteAlbum(long id) {
+
+		Boolean ifExist = false;
+		try {
+			ifExist = albumRepository.deleteAlbum(id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ifExist;
+	}
+}
