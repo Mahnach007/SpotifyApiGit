@@ -2,9 +2,6 @@ package ua.lviv.iot.spotifyapi.controller;
 
 import java.util.ArrayList;
 
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +22,7 @@ import ua.lviv.iot.spotifyapi.servise.AlbumService;
 public class AlbumController {
 	
 	@Autowired
-	AlbumService albumService;
+	private AlbumService albumService;
 	
 	@GetMapping
 	public ResponseEntity<ArrayList<Album>> getAllAlbums() {
@@ -34,7 +31,8 @@ public class AlbumController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Album> getAlbum(@PathVariable long id) {
-		return new ResponseEntity<>(albumService.getAlbum(id), HttpStatus.OK );
+		Album album = albumService.getAlbum(id);
+		return new ResponseEntity<>(album, album == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}	
 	
 	@PostMapping
@@ -44,15 +42,17 @@ public class AlbumController {
 	}	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateAlbum(@PathVariable long id){
-		return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+	public ResponseEntity<Void> updateAlbum(@PathVariable long id, @RequestBody Album album){
+		Boolean ifExist = albumService.updateAlbum(id, album);
+		return new ResponseEntity<>( ifExist ? HttpStatus.NO_CONTENT: HttpStatus.NOT_FOUND);
 		
 	}	
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteAlbum(@PathVariable long id){
-		albumService.deleteAlbum(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		Boolean ifExist = albumService.deleteAlbum(id);
+		return new ResponseEntity<>(ifExist ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
+
 		
 	}	
 }

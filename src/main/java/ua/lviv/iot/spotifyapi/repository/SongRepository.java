@@ -19,4 +19,6 @@ public interface SongRepository {
 	 Boolean updateSong(long id, Song song) throws IOException;
 
 	 Boolean deleteSong(long id) throws IOException;
+	 
+	 long getLastEntityId();
 }

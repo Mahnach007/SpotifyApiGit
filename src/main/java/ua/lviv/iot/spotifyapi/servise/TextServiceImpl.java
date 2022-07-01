@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,13 @@ public class TextServiceImpl implements TextService {
 
 	private long idCounter = 1L;
 
+	@PostConstruct
+	public void init() {
+		idCounter = textRepository.getLastEntityId();
+	}
 	@Override
 	public Text createText(Text Text) {
-		Text.setId(idCounter++);
+		Text.setId(++idCounter);
 		textRepository.addText(Text);
 		return Text;
 	}

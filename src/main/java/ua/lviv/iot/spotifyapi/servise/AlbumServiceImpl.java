@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,15 @@ public class AlbumServiceImpl implements AlbumService {
 	private AlbumRepository albumRepository;
 
 	private long idCounter = 1L;
+	
+	@PostConstruct
+	public void init() {
+		idCounter = albumRepository.getLastEntityId();
+	}
 
 	@Override
 	public Album createAlbum(Album album) {
-		album.setId(idCounter++);
+		album.setId(++idCounter);
 		albumRepository.addAlbum(album);
 		return album;
 	}

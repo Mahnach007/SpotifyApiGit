@@ -34,7 +34,8 @@ public class TextController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Text> getText(@PathVariable long id) {
-		return new ResponseEntity<>(textService.getText(id), HttpStatus.OK );
+		Text text = textService.getText(id);
+		return new ResponseEntity<>(text, text == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}	
 	
 	@PostMapping
@@ -43,14 +44,15 @@ public class TextController {
 	}	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateText(@PathVariable String id){
-		return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+	public ResponseEntity<Void> updateText(@PathVariable long id,  @RequestBody Text text){
+		Boolean ifExist = textService.updateText(id, text);
+		return new ResponseEntity<>( ifExist ? HttpStatus.NO_CONTENT: HttpStatus.NOT_FOUND);
 		
 	}	
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteText(@PathVariable long id){
-		textService.deleteText(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		Boolean ifExist = textService.deleteText(id);
+		return new ResponseEntity<>(ifExist ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
 	}	
 }

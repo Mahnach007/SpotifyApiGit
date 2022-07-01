@@ -12,9 +12,8 @@ import ua.lviv.iot.spotifyapi.model.Artist;
 public class ArtistRepositoryImpl extends BaseCSVRepository<Artist> implements ArtistRepository {
 
 	public ArtistRepositoryImpl() throws IOException {
-		super("artist",  new String[] { "id", "age", "name", "artistLabel" });
-	
-
+		super("artist",  new String[] { "id", "age", "name", "artistLabel" }, Artist.class);
+		
 	}
 
 	public ArrayList<Artist> getAllArtists() {

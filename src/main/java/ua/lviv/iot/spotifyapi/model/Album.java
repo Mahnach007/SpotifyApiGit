@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 public class Album extends BaseModel{
 	
-	@CsvBindByName
+	@CsvBindByName(column = "name")
 	private String name;
-	@CsvBindByName
+	@CsvBindByName(column = "date")
 	private String date;
 }

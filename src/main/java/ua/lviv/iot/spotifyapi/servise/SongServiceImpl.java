@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,15 @@ public class SongServiceImpl implements SongService {
 	private SongRepository songRepository;
 
 	private long idCounter = 1L;
+	
+	@PostConstruct
+	public void init() {
+		idCounter = songRepository.getLastEntityId();
+	}
 
 	@Override
 	public Song createSong(Song song) {
-		song.setId(idCounter++);
+		song.setId(++idCounter);
 		songRepository.addSong(song);
 		return song;
 	}

@@ -12,6 +12,7 @@ import ua.lviv.iot.spotifyapi.model.Artist;
 @Repository
 public interface ArtistRepository {
 
+	
 	 Artist addArtist(Artist artist);
 
 	 ArrayList<Artist> getAllArtists();
@@ -21,5 +22,7 @@ public interface ArtistRepository {
 	 Boolean updateArtist(long id, Artist artist) throws IOException;
 
 	 Boolean deleteArtist(long id) throws IOException;
+	 
+	 long getLastEntityId();
 
 }

@@ -10,11 +10,11 @@ import lombok.Setter;
 @Setter
 public class Label extends BaseModel{
 	
-	@CsvBindByName
+	@CsvBindByName(column = "name")
 	private String name;
-	@CsvBindByName
+	@CsvBindByName(column = "date")
 	private String date;
-	@CsvBindByName
+	@CsvBindByName(column = "labelCreator")
 	private String labelCreator;
 	
 }

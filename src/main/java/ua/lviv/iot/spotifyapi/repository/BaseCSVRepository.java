@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,13 +31,15 @@ public abstract class BaseCSVRepository<T extends BaseModel> {
 	protected String updateDate;
 	private String entityName;
 	private String[] entityHeaders;
+	private Class <T> enityClass;
 
 	final private String filesFolderPath = "src/main/resources/csvFiles/";
 
-	public BaseCSVRepository(String newEntityName,String[] newEntityHeaders) throws IOException {
+	public BaseCSVRepository(String newEntityName,String[] newEntityHeaders, Class <T> newEnityClass) throws IOException {
 		
 		entityName = newEntityName;
 		entityHeaders = newEntityHeaders;
+		enityClass = newEnityClass;
 		
 		try {
 			if (!createFile(LocalDate.now().toString())) {
@@ -49,10 +52,19 @@ public abstract class BaseCSVRepository<T extends BaseModel> {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	
+	}
+	
+	public long getLastEntityId() {
+		if (entities.isEmpty()) {
+			return 0;
+		}
+		return Collections.max(entities.keySet());
 	}
 
 	private void readCSV() throws IllegalStateException, IOException {
 		HeaderColumnNameMappingStrategy<T> ms = new HeaderColumnNameMappingStrategy<>();
+		ms.setType(enityClass);
 		String upToDateFilePath = String.format("%s%s-%s.csv", filesFolderPath, entityName, updateDate);
 		System.out.println(upToDateFilePath);
 		CsvToBean<T> bean = new CsvToBeanBuilder<T>(new FileReader(upToDateFilePath)).withMappingStrategy(ms)
@@ -106,12 +118,16 @@ public abstract class BaseCSVRepository<T extends BaseModel> {
 		String currentDate = LocalDate.now().toString();
 		if (!updateDate.equals(currentDate)) {
 			try {
+				
 				createCSV(currentDate);
+		
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			entities.clear();
+			
 		}
+	
 	}
 
 }

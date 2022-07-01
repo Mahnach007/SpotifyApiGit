@@ -19,4 +19,6 @@ public interface LabelRepository {
 	 Boolean updateLabel(long id, Label label) throws IOException;
 
 	 Boolean deleteLabel(long id) throws IOException;
+	 
+	 long getLastEntityId();
 }

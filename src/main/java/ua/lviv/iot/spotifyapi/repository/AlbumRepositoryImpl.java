@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
-
 import org.springframework.stereotype.Repository;
 
 import ua.lviv.iot.spotifyapi.model.Album;
@@ -15,10 +14,8 @@ import ua.lviv.iot.spotifyapi.model.Album;
 @Repository
 public class AlbumRepositoryImpl  extends BaseCSVRepository<Album> implements AlbumRepository {
 	
-	
-
 	public AlbumRepositoryImpl() throws IOException {
-		super("album",  new String [] {"id", "name", "date"});
+		super("album",  new String [] {"id", "name", "date"}, Album.class);
 	}
 
 	@Override
@@ -70,8 +67,7 @@ public class AlbumRepositoryImpl  extends BaseCSVRepository<Album> implements Al
 			}
 
 		} else {
-		
-				writeCSVHeadersToFile(filePath);
+		writeCSVHeadersToFile(filePath);
 			
 		}
 		return true;
@@ -79,6 +75,7 @@ public class AlbumRepositoryImpl  extends BaseCSVRepository<Album> implements Al
 
 	@Override
 	public Boolean updateAlbum(long id, Album album) {
+		
 		recreateDataSourceIfNewDay();
 
 		if (entities.containsKey(id)) {

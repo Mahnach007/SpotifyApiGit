@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter
 public abstract class BaseModel {
 	
-	@CsvBindByName
+	@CsvBindByName(column = "id")
 	private long id;
 }

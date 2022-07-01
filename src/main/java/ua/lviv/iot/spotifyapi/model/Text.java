@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 public class Text extends BaseModel{
 	
-	@CsvBindByName
+	@CsvBindByName(column = "name")
 	private String name;
-	@CsvBindByName
+	@CsvBindByName(column = "lyrics")
 	private String lyrics;
 }

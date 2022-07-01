@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,15 @@ public class ArtistsServiceImpl implements ArtistsService {
 	private ArtistRepository artistRepository;
 
 	private long idCounter = 1L;
+	
+	@PostConstruct
+	public void init() {
+		idCounter = artistRepository.getLastEntityId();
+	}
 
 	@Override
 	public Artist createArtist(Artist artist) {
-		artist.setId(idCounter++);
+		artist.setId(++idCounter);
 		artistRepository.addArtist(artist);
 		return artist;
 	}

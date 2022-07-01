@@ -13,7 +13,7 @@ import ua.lviv.iot.spotifyapi.model.Song;
 public class SongRepositoryImpl extends BaseCSVRepository<Song> implements SongRepository {
 
 	public SongRepositoryImpl() throws IOException {
-		super("song", new String[] { "id", "name", "artist", "date" });
+		super("song", new String[] { "id", "name", "artist", "date" }, Song.class);
 	
 	}
 

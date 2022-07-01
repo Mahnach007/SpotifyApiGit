@@ -20,4 +20,6 @@ public interface TextRepository {
 	 Boolean updateText(long id, Text text) throws IOException;
 
 	 Boolean deleteText(long id) throws IOException;
+	 
+	 long getLastEntityId();
 }

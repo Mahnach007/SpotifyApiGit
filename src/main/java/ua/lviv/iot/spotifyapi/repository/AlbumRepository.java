@@ -19,4 +19,6 @@ public interface AlbumRepository {
 	 Boolean deleteAlbum(long id) throws IOException;
 
 	 Album addAlbum(Album album);
+	 
+	 long getLastEntityId();
 }

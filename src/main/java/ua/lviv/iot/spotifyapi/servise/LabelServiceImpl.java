@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,15 @@ public class LabelServiceImpl implements LabelService {
 	private LabelRepository labelRepository;
 
 	private long idCounter = 1L;
+	
+	@PostConstruct
+	public void init() {
+		idCounter = labelRepository.getLastEntityId();
+	}
 
 	@Override
 	public Label createLabel(Label label) {
-		label.setId(idCounter++);
+		label.setId(++idCounter);
 		labelRepository.addLabel(label);
 		return label;
 	}

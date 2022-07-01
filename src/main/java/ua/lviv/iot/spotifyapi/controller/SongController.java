@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-
 import ua.lviv.iot.spotifyapi.model.Song;
 import ua.lviv.iot.spotifyapi.servise.SongService;
 
@@ -38,7 +37,8 @@ public class SongController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Song> getSong(@PathVariable long id) {
-		return new ResponseEntity<>(songService.getSong(id), HttpStatus.OK );
+		Song song = songService.getSong(id);
+		return new ResponseEntity<>(song, song == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}	
 	
 	@PostMapping
@@ -47,15 +47,17 @@ public class SongController {
 	}	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateSong(@PathVariable String id){
-		return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+	public ResponseEntity<Void> updateSong(@PathVariable long id, @RequestBody Song song){
+		Boolean ifExist = songService.updateSong(id, song);
+		return new ResponseEntity<>( ifExist ? HttpStatus.NO_CONTENT: HttpStatus.NOT_FOUND);
+
 		
 	}	
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteSong(@PathVariable long id){
-		songService.deleteSong(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		Boolean ifExist = songService.deleteSong(id);
+		return new ResponseEntity<>(ifExist ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
 		
 	}	
 }

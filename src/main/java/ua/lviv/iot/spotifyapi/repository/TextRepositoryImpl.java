@@ -12,7 +12,7 @@ import ua.lviv.iot.spotifyapi.model.Text;
 public class TextRepositoryImpl extends BaseCSVRepository<Text> implements TextRepository {
 
 	public TextRepositoryImpl() throws IOException {
-		super( "text",new String[] { "id", "name", "lyrics" } );
+		super( "text",new String[] { "id", "name", "lyrics" }, Text.class );
 	
 	}
 

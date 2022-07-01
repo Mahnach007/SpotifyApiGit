@@ -12,7 +12,7 @@ import ua.lviv.iot.spotifyapi.model.Label;
 public class LabelRepositoryImpl extends BaseCSVRepository<Label> implements LabelRepository {
 
 	public LabelRepositoryImpl() throws IOException {
-		super("label", new String[] { "id", "name", "date", "labelCreator" } );
+		super("label", new String[] { "id", "name", "date", "labelCreator" }, Label.class);
 		
 	}
 
