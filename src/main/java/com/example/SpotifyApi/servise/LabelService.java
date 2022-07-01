@@ -2,18 +2,18 @@ package com.example.SpotifyApi.servise;
 
 import java.util.ArrayList;
 
+
 import org.springframework.stereotype.Service;
 
-import com.example.SpotifyApi.Payload.LabelResponse;
-import com.example.SpotifyApi.entities.LabelEntity;
+
 import com.example.SpotifyApi.model.Label;
 
 @Service
 public interface LabelService {
 
-	public LabelResponse createLabel(LabelEntity label);
+	public Label createLabel(Label label);
 	public ArrayList<Label> getAllLabels();
-	public Label getLabel(String id);
-	public void updateLabel(String id,LabelEntity labelEntity);
-	public void deleteLabel(String id);
+	public Label getLabel(long id);
+	public Boolean updateLabel(long id, Label label);
+	public Boolean deleteLabel(long id);
 }

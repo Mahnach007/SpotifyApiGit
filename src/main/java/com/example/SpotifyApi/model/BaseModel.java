@@ -4,13 +4,11 @@ import com.opencsv.bean.CsvBindByName;
 
 import lombok.Getter;
 import lombok.Setter;
- 
+
 @Getter
 @Setter
-public class Text extends BaseModel{
+public abstract class BaseModel {
 	
 	@CsvBindByName
-	private String name;
-	@CsvBindByName
-	private String lyrics;
+	private long id;
 }

@@ -1,41 +1,29 @@
 package com.example.SpotifyApi.servise;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.SpotifyApi.Payload.SongResponse;
-import com.example.SpotifyApi.entities.SongEntity;
 import com.example.SpotifyApi.model.Song;
 import com.example.SpotifyApi.repository.SongRepository;
-
 
 @Service
 public class SongServiceImpl implements SongService {
 
-	
 	@Autowired
 	private SongRepository songRepository;
-	
+
+	private long idCounter = 1L;
+
 	@Override
-	public SongResponse createSong(SongEntity song) { 
-		
-		String uniqueID = UUID.randomUUID().toString();	
-		Song labelModel = new Song();
-		labelModel.setDate(song.getDate());
-		labelModel.setArtist(song.getArtist());
-		labelModel.setName(song.getName());
-		SongResponse resp = new SongResponse();
-		resp.setId(uniqueID);
-		resp.setDate(song.getDate());
-		resp.setName(song.getName());
-		resp.setArtist(song.getArtist());
-		return resp ;
+	public Song createSong(Song song) {
+		song.setId(idCounter++);
+		songRepository.addSong(song);
+		return song;
 	}
-	
 
 	@Override
 	public ArrayList<Song> getAllSongs() {
@@ -43,24 +31,32 @@ public class SongServiceImpl implements SongService {
 	}
 
 	@Override
-	public Song getSong(String id) {
+	public Song getSong(long id) {
 		return songRepository.getSong(id);
 	}
 
 	@Override
-	public void updateSong(String id, SongEntity songEntity) {
-		// TODO Auto-generated method stub
-		
-	}
+	public Boolean updateSong(long id, Song song) {
 
-	@Override
-	public void deleteSong(String id) {
+		Boolean ifExist = false;
+
 		try {
-			songRepository.deleteSong(id);
+			ifExist = songRepository.updateSong(id, song);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		return ifExist;
 	}
 
+	@Override
+	public Boolean deleteSong(long id) {
+
+		Boolean ifExist = false;
+		try {
+			ifExist = songRepository.deleteSong(id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ifExist;
+	}
 }

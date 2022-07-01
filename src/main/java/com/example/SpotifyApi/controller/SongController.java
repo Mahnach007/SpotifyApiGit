@@ -2,6 +2,8 @@ package com.example.SpotifyApi.controller;
 
 import java.util.ArrayList;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.SpotifyApi.Payload.ArtistResponse;
-import com.example.SpotifyApi.Payload.LabelResponse;
-import com.example.SpotifyApi.Payload.SongResponse;
-import com.example.SpotifyApi.entities.ArtistEntity;
-import com.example.SpotifyApi.entities.LabelEntity;
-import com.example.SpotifyApi.entities.SongEntity;
+
 import com.example.SpotifyApi.model.Artist;
 import com.example.SpotifyApi.model.Label;
 import com.example.SpotifyApi.model.Song;
@@ -43,13 +40,13 @@ public class SongController {
 	}	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Song> getSong(@PathVariable String id) {
+	public ResponseEntity<Song> getSong(@PathVariable long id) {
 		return new ResponseEntity<>(songService.getSong(id), HttpStatus.OK );
 	}	
 	
 	@PostMapping
-	public ResponseEntity<SongResponse> addSong(@RequestBody SongEntity Song){
-		return new ResponseEntity<>(songService.createSong(Song), HttpStatus.CREATED);
+	public ResponseEntity<Song> addSong(@RequestBody Song song){
+		return new ResponseEntity<>(songService.createSong(song), HttpStatus.CREATED);
 	}	
 	
 	@PutMapping("/{id}")
@@ -59,7 +56,7 @@ public class SongController {
 	}	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteSong(@PathVariable String id){
+	public ResponseEntity<Void> deleteSong(@PathVariable long id){
 		songService.deleteSong(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		

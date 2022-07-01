@@ -1,18 +1,21 @@
 package com.example.SpotifyApi.servise;
 
+
 import java.util.ArrayList;
 
-import com.example.SpotifyApi.entities.ArtistEntity;
-import com.example.SpotifyApi.Payload.ArtistResponse;
+
+import org.springframework.stereotype.Service;
+
 import com.example.SpotifyApi.model.Artist;
 
+@Service
 public interface ArtistsService {
 	
-	public ArtistResponse createArtist(ArtistEntity artist);
+	public Artist createArtist(Artist artist);
 	public ArrayList<Artist> getAllArtists();
-	public Artist getArtist(String id);
-	public void updateArtist(String id, ArtistEntity artistEntity);
-	public void deleteArtist(String id);
+	public Artist getArtist(long id);
+	public Boolean updateArtist(long id, Artist artistEntity);
+	public Boolean deleteArtist(long id);
 	
 	
 }

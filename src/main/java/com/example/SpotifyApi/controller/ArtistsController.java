@@ -2,6 +2,7 @@ package com.example.SpotifyApi.controller;
 
 import java.util.ArrayList;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.SpotifyApi.entities.ArtistEntity;
-import com.example.SpotifyApi.Payload.ArtistResponse;
 import com.example.SpotifyApi.model.Artist;
 import com.example.SpotifyApi.servise.ArtistsService;
-
 
 
 @RestController
@@ -34,27 +32,26 @@ public class ArtistsController  {
 	}	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Artist> getArtist(@PathVariable String id) {
-		return new ResponseEntity<>(artistService.getArtist(id), HttpStatus.OK );
+	public ResponseEntity<Artist> getArtist(@PathVariable long id) {
+		Artist artist = artistService.getArtist(id);
+		return new ResponseEntity<>(artist, artist == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}	
 	
 	@PostMapping
-	public ResponseEntity <ArtistResponse> addArtist(@RequestBody ArtistEntity artist){
-		
+	public ResponseEntity <Artist> addArtist(@RequestBody Artist artist){
 		return new ResponseEntity<>(artistService.createArtist(artist), HttpStatus.CREATED);
 	}	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateArtist(@PathVariable String id){
-		return new ResponseEntity<>( HttpStatus.NO_CONTENT);
-		
+	public ResponseEntity<Void> updateArtist(@PathVariable long id, @RequestBody Artist artist){
+		Boolean ifExist = artistService.updateArtist(id, artist);
+		return new ResponseEntity<>( ifExist ? HttpStatus.NO_CONTENT: HttpStatus.NOT_FOUND);
 	}	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteArtist(@PathVariable String id){
-		artistService.deleteArtist(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		
+	public ResponseEntity<Void> deleteArtist(@PathVariable long id){
+		Boolean ifExist = artistService.deleteArtist(id);
+		return new ResponseEntity<>(ifExist ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
 	}	
 
 }

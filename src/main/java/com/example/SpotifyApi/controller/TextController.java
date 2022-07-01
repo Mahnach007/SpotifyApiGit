@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.SpotifyApi.Payload.TextResponse;
-import com.example.SpotifyApi.entities.TextEntity;
 import com.example.SpotifyApi.model.Text;
 import com.example.SpotifyApi.servise.TextService;
 
@@ -34,12 +32,12 @@ public class TextController {
 	}	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Text> getText(@PathVariable String id) {
+	public ResponseEntity<Text> getText(@PathVariable long id) {
 		return new ResponseEntity<>(textService.getText(id), HttpStatus.OK );
 	}	
 	
 	@PostMapping
-	public ResponseEntity<TextResponse> addText(@RequestBody TextEntity text){
+	public ResponseEntity<Text> addText(@RequestBody Text text){
 		return new ResponseEntity<>(textService.createText(text), HttpStatus.CREATED);
 	}	
 	
@@ -50,7 +48,7 @@ public class TextController {
 	}	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteText(@PathVariable String id){
+	public ResponseEntity<Void> deleteText(@PathVariable long id){
 		textService.deleteText(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}	

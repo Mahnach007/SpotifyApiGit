@@ -1,65 +1,61 @@
 package com.example.SpotifyApi.servise;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import java.util.UUID;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.SpotifyApi.entities.ArtistEntity;
-import com.example.SpotifyApi.Payload.ArtistResponse;
 import com.example.SpotifyApi.model.Artist;
 import com.example.SpotifyApi.repository.ArtistRepository;
 
-
 @Service
-public class ArtistsServiceImpl implements ArtistsService{
-	
+public class ArtistsServiceImpl implements ArtistsService {
+
 	@Autowired
 	private ArtistRepository artistRepository;
-	
+
+	private long idCounter = 1L;
+
 	@Override
-	public ArtistResponse createArtist(ArtistEntity artist) { 
-		
-		String uniqueID = UUID.randomUUID().toString();	
-		Artist artistModel = new Artist();
-		artistModel.setAge(artist.getAge());
-		artistModel.setArtistLabel(artist.getArtistLabel());
-		artistModel.setName(artist.getName());
-		ArtistResponse resp = new ArtistResponse();
-		resp.setId(uniqueID);
-		resp.setAge(artist.getAge());
-		resp.setName(artist.getName());
-		resp.setArtistLabel(artist.getArtistLabel());
-		return resp ;
+	public Artist createArtist(Artist artist) {
+		artist.setId(idCounter++);
+		artistRepository.addArtist(artist);
+		return artist;
 	}
-	
+
 	@Override
-	public ArrayList<Artist> getAllArtists(){
+	public ArrayList<Artist> getAllArtists() {
 		return artistRepository.getAllArtists();
 	}
 
 	@Override
-	public Artist getArtist(String id) {
-		
+	public Artist getArtist(long id) {
 		return artistRepository.getArtist(id);
 	}
 
 	@Override
-	public void updateArtist(String id, ArtistEntity artistEntity) {
-		
-		// artistRepository.updateArtist(id, artistEntity);
-	}
+	public Boolean updateArtist(long id, Artist artist) {
 
-	@Override
-	public void deleteArtist(String id) {
-		
+		Boolean ifExist = false;
 		try {
-			artistRepository.deleteArtist(id);
+			ifExist = artistRepository.updateArtist(id, artist);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return ifExist;
+	}
+
+	@Override
+	public Boolean deleteArtist(long id) {
+
+		Boolean ifExist = false;
+		try {
+			ifExist = artistRepository.deleteArtist(id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ifExist;
 	}
 }

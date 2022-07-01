@@ -8,7 +8,6 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
 	<artifactId>SpotifyApi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SpotifyApi</name>
@@ -17,7 +16,20 @@
 		<java.version>17</java.version>
 		<testcontainers.version>1.17.2</testcontainers.version>
 	</properties>
+<reporting>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+                <configLocation>checkstyle.xml</configLocation>
+            </configuration>
+        </plugin>
+    </plugins>
+</reporting>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -67,6 +79,14 @@
 	<build>
 		<plugins>
 			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+                <configLocation>checkstyle.xml</configLocation>
+            </configuration>
+        </plugin>
+			<plugin>
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
 				<version>1.5.8</version>
@@ -106,4 +126,5 @@
 		</plugins>
 	</build>
 
+	<groupId>ua.lviv.iot</groupId>
 </project>

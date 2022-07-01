@@ -1,65 +1,65 @@
 package com.example.SpotifyApi.servise;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.SpotifyApi.Payload.AlbumResponse;
-import com.example.SpotifyApi.entities.AlbumEntity;
 import com.example.SpotifyApi.model.Album;
+import com.example.SpotifyApi.model.Artist;
 import com.example.SpotifyApi.repository.AlbumRepository;
-
+import com.example.SpotifyApi.repository.ArtistRepository;
 
 @Service
-public class AlbumServiceImpl implements AlbumService{
+public class AlbumServiceImpl implements AlbumService {
 
 	@Autowired
 	private AlbumRepository albumRepository;
 
-
+	private long idCounter = 1L;
 
 	@Override
-	public AlbumResponse createAlbum(AlbumEntity album) {
-		String uniqueID = UUID.randomUUID().toString();	
-		Album artistModel = new Album();
-		artistModel.setDate(album.getDate());
-		artistModel.setName(album.getName());
-		AlbumResponse resp = new AlbumResponse();
-		resp.setId(uniqueID);
-		resp.setDate(album.getDate());
-		resp.setName(album.getName());
-		return resp ;
+	public Album createAlbum(Album album) {
+		album.setId(idCounter++);
+		albumRepository.addAlbum(album);
+		return album;
 	}
 
 	@Override
 	public ArrayList<Album> getAllAlbums() {
 		return albumRepository.getAllAlbums();
-		
 	}
 
 	@Override
-	public Album getAlbum(String id) {
+	public Album getAlbum(long id) {
 		return albumRepository.getAlbum(id);
 	}
-	
-	@Override
-	public void updateAlbum(String id, AlbumEntity albumEntity) {
-		
-		// artistRepository.updateArtist(id, artistEntity);
-	}
 
 	@Override
-	public void deleteAlbum(String id) {
+	public Boolean updateAlbum(long id, Album album) {
+
+		Boolean ifExist = false;
+
 		try {
-			albumRepository.deleteAlbum(id);
+			ifExist = albumRepository.updateAlbum(id, album);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-		
+		return ifExist;
 	}
 
-	
+	@Override
+	public Boolean deleteAlbum(long id) {
+
+		Boolean ifExist = false;
+		try {
+			ifExist = albumRepository.deleteAlbum(id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ifExist;
+	}
+}

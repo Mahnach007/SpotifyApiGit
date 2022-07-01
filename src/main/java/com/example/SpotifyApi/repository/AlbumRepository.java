@@ -10,7 +10,12 @@ import com.example.SpotifyApi.model.Album;
 @Repository
 public interface AlbumRepository {
 	public ArrayList<Album> getAllAlbums();
-	public Album getAlbum(String id);
-	public void updateAlbum(String id, Album albumEntity) throws IOException;
-	public void deleteAlbum(String id) throws IOException;
+
+	public Album getAlbum(long id);
+
+	public Boolean updateAlbum(long id, Album album) throws IOException;
+
+	public Boolean deleteAlbum(long id) throws IOException;
+
+	public Album addAlbum(Album album);
 }

@@ -7,14 +7,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Artist {
-	
-	@CsvBindByName(column = "id")
-	private String id;
-	@CsvBindByName(column = "name")
+public class Artist extends BaseModel {
+
+	@CsvBindByName
 	private String name;
-	@CsvBindByName(column = "age")
+	@CsvBindByName
 	private int age;
-	@CsvBindByName(column = "artistLabel")
+	@CsvBindByName
 	private String artistLabel;
+
 }

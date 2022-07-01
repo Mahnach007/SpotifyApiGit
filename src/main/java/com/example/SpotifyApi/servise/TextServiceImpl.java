@@ -1,65 +1,66 @@
 package com.example.SpotifyApi.servise;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.SpotifyApi.Payload.SongResponse;
-import com.example.SpotifyApi.Payload.TextResponse;
-import com.example.SpotifyApi.entities.SongEntity;
-import com.example.SpotifyApi.entities.TextEntity;
-import com.example.SpotifyApi.model.Song;
 import com.example.SpotifyApi.model.Text;
-import com.example.SpotifyApi.repository.SongRepository;
+import com.example.SpotifyApi.model.Text;
+import com.example.SpotifyApi.repository.TextRepository;
 import com.example.SpotifyApi.repository.TextRepository;
 
 @Service
-public class TextServiceImpl implements TextService{
+public class TextServiceImpl implements TextService {
 
 	@Autowired
 	private TextRepository textRepository;
-	
+
+	private long idCounter = 1L;
+
 	@Override
-	public TextResponse createText(TextEntity text) { 
-		
-		String uniqueID = UUID.randomUUID().toString();	
-		Text labelModel = new Text();
-		labelModel.setLyrics(text.getLyrics());
-		labelModel.setName(text.getName());
-		TextResponse resp = new TextResponse();
-		resp.setId(uniqueID);
-		resp.setLyrics(text.getLyrics());
-		resp.setName(text.getName());
-		return resp ;
+	public Text createText(Text Text) {
+		Text.setId(idCounter++);
+		textRepository.addText(Text);
+		return Text;
 	}
-	
+
 	@Override
 	public ArrayList<Text> getAllTexts() {
 		return textRepository.getAllTexts();
 	}
 
 	@Override
-	public Text getText(String id) {
+	public Text getText(long id) {
 		return textRepository.getText(id);
 	}
 
 	@Override
-	public void updateText(String id, TextEntity textEntity) {
-		// TODO Auto-generated method stub
-		
-	}
+	public Boolean updateText(long id, Text text) {
 
-	@Override
-	public void deleteText(String id) {
+		Boolean ifExist = false;
+
 		try {
-			textRepository.deleteText(id);
+			ifExist = textRepository.updateText(id, text);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		return ifExist;
+	}
+
+	@Override
+	public Boolean deleteText(long id) {
+
+		Boolean ifExist = false;
+		try {
+			ifExist = textRepository.deleteText(id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ifExist;
 	}
 
 }
