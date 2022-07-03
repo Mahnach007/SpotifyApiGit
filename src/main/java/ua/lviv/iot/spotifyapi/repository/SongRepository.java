@@ -21,4 +21,6 @@ public interface SongRepository {
 	 Boolean deleteSong(long id) throws IOException;
 	 
 	 long getLastEntityId();
+
+	 ArrayList<Song> getSongsByAlbum(long id);
 }

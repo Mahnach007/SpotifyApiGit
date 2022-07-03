@@ -2,7 +2,6 @@ package ua.lviv.iot.spotifyapi.servise;
 
 import java.io.IOException;
 
-
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
@@ -11,16 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.spotifyapi.model.Album;
+import ua.lviv.iot.spotifyapi.model.Song;
 import ua.lviv.iot.spotifyapi.repository.AlbumRepository;
+import ua.lviv.iot.spotifyapi.repository.SongRepository;
 
 @Service
 public class AlbumServiceImpl implements AlbumService {
 
 	@Autowired
 	private AlbumRepository albumRepository;
+	@Autowired
+	private SongRepository songRepository;
 
 	private long idCounter = 1L;
-	
+
 	@PostConstruct
 	public void init() {
 		idCounter = albumRepository.getLastEntityId();
@@ -41,6 +44,11 @@ public class AlbumServiceImpl implements AlbumService {
 	@Override
 	public Album getAlbum(long id) {
 		return albumRepository.getAlbum(id);
+	}
+
+	@Override
+	public ArrayList<Song> getAlbumSongs(long id) {
+		return songRepository.getSongsByAlbum(id);
 	}
 
 	@Override

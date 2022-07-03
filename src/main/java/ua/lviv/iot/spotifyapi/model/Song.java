@@ -12,8 +12,9 @@ public class Song extends BaseModel{
 	
 	@CsvBindByName(column = "name")
 	private String name;
-	@CsvBindByName(column = "artist")
-	private String artist;
 	@CsvBindByName(column = "date")
 	private String date;
+	@CsvBindByName(column = "albumId")
+	private int albumId;
+
 }

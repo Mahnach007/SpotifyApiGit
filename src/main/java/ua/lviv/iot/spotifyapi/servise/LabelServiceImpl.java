@@ -10,7 +10,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ua.lviv.iot.spotifyapi.model.Artist;
 import ua.lviv.iot.spotifyapi.model.Label;
+import ua.lviv.iot.spotifyapi.model.Song;
+import ua.lviv.iot.spotifyapi.repository.ArtistRepository;
 import ua.lviv.iot.spotifyapi.repository.LabelRepository;
 
 @Service
@@ -18,7 +21,10 @@ public class LabelServiceImpl implements LabelService {
 
 	@Autowired
 	private LabelRepository labelRepository;
-
+	
+	@Autowired
+	private ArtistRepository artistRepository;
+	
 	private long idCounter = 1L;
 	
 	@PostConstruct
@@ -41,6 +47,10 @@ public class LabelServiceImpl implements LabelService {
 	@Override
 	public Label getLabel(long id) {
 		return labelRepository.getLabel(id);
+	}
+	@Override
+	public ArrayList<Artist> getLabelArtists(long id) {
+		return artistRepository.getArtistsByLabel(id);
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.lviv.iot.spotifyapi.model.Album;
+import ua.lviv.iot.spotifyapi.model.Song;
 import ua.lviv.iot.spotifyapi.servise.AlbumService;
 
 @RestController
@@ -33,6 +34,12 @@ public class AlbumController {
 	public ResponseEntity<Album> getAlbum(@PathVariable long id) {
 		Album album = albumService.getAlbum(id);
 		return new ResponseEntity<>(album, album == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+	}	
+	
+	@GetMapping("/{id}/songs")
+	public ResponseEntity<ArrayList<Song>> getAlbumSongs(@PathVariable long id) {
+		ArrayList<Song> songs = albumService.getAlbumSongs(id);
+		return new ResponseEntity<>(songs, HttpStatus.OK);
 	}	
 	
 	@PostMapping

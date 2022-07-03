@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.spotifyapi.model.Album;
+import ua.lviv.iot.spotifyapi.model.Song;
 
 
 @Service
@@ -19,6 +20,8 @@ public interface AlbumService {
 	 Boolean updateAlbum(long id, Album albumEntity);
 
 	 Boolean deleteAlbum(long id);
+
+	 ArrayList<Song> getAlbumSongs(long id);
 	
 	
 }

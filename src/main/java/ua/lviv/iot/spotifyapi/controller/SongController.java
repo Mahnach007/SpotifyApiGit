@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.lviv.iot.spotifyapi.model.Song;
+import ua.lviv.iot.spotifyapi.model.Text;
 import ua.lviv.iot.spotifyapi.servise.SongService;
 
 
@@ -40,6 +41,13 @@ public class SongController {
 		Song song = songService.getSong(id);
 		return new ResponseEntity<>(song, song == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}	
+	
+	@GetMapping("/{id}/text")
+	public ResponseEntity<Text> getSongText(@PathVariable long id) {
+		Text text = songService.getSongText(id);
+		return new ResponseEntity<>(text, text == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+	}	
+	
 	
 	@PostMapping
 	public ResponseEntity<Song> addSong(@RequestBody Song song){

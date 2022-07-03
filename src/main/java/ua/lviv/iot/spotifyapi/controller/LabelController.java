@@ -2,6 +2,7 @@ package ua.lviv.iot.spotifyapi.controller;
 
 import java.util.ArrayList;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ua.lviv.iot.spotifyapi.model.Artist;
 import ua.lviv.iot.spotifyapi.model.Label;
 import ua.lviv.iot.spotifyapi.servise.LabelService;
 
 
 
 @RestController
-@RequestMapping("/Label")
+@RequestMapping("/label")
 public class LabelController {
 
 	@Autowired
@@ -36,6 +38,11 @@ public class LabelController {
 		Label label = labelService.getLabel(id);
 		return new ResponseEntity<>(label, label == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
+	@GetMapping("/{id}/artists")
+	public ResponseEntity<ArrayList<Artist>> getLabelArtists(@PathVariable long id) {
+		ArrayList<Artist> artists = labelService.getLabelArtists(id);
+		return new ResponseEntity<>(artists, HttpStatus.OK);
+	}	
 
 	@PostMapping
 	public ResponseEntity<Label> addLabel(@RequestBody Label Label) {

@@ -3,10 +3,13 @@ package ua.lviv.iot.spotifyapi.repository;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.stereotype.Repository;
 
+import ua.lviv.iot.spotifyapi.model.Artist;
 import ua.lviv.iot.spotifyapi.model.Label;
+import ua.lviv.iot.spotifyapi.model.Song;
 
 @Repository
 public class LabelRepositoryImpl extends BaseCSVRepository<Label> implements LabelRepository {
@@ -28,6 +31,7 @@ public class LabelRepositoryImpl extends BaseCSVRepository<Label> implements Lab
 		recreateDataSourceIfNewDay();
 		return entities.get(id);
 	}
+
 
 	@Override
 	public Label addLabel(Label label) {

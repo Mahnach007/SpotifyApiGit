@@ -25,4 +25,6 @@ public interface ArtistRepository {
 	 
 	 long getLastEntityId();
 
+	 ArrayList<Artist> getArtistsByLabel(long id);
+
 }

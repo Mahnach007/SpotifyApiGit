@@ -21,4 +21,6 @@ public interface AlbumRepository {
 	 Album addAlbum(Album album);
 	 
 	 long getLastEntityId();
+
+	 ArrayList<Album> getAlbumsByArtist(long id);
 }

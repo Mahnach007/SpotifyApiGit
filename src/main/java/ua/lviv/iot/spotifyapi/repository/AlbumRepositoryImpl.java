@@ -5,10 +5,12 @@ import java.io.IOException;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.stereotype.Repository;
 
 import ua.lviv.iot.spotifyapi.model.Album;
+import ua.lviv.iot.spotifyapi.model.Song;
 
 
 @Repository
@@ -29,6 +31,14 @@ public class AlbumRepositoryImpl  extends BaseCSVRepository<Album> implements Al
 	public Album getAlbum(long id) {
 		recreateDataSourceIfNewDay();
 		return entities.get(id);
+	}
+	
+	@Override
+	public ArrayList<Album> getAlbumsByArtist(long id) {
+		recreateDataSourceIfNewDay();
+		Collection<Album> albumValues = entities.values();
+		albumValues.removeIf(p -> p.getArtistId() != id);
+		return new ArrayList<>(albumValues);
 	}
 
 	@Override

@@ -22,4 +22,6 @@ public interface TextRepository {
 	 Boolean deleteText(long id) throws IOException;
 	 
 	 long getLastEntityId();
+
+	 Text getTextBySong(long id);
 }

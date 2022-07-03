@@ -14,7 +14,7 @@ public class Artist extends BaseModel {
 	private String name;
 	@CsvBindByName(column = "age")
 	private int age;
-	@CsvBindByName(column = "artistLabel")
-	private String artistLabel;
+	@CsvBindByName(column = "albumId")
+	private int labelId;
 
 }

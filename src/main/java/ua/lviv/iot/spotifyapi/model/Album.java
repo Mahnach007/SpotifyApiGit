@@ -1,5 +1,6 @@
 package ua.lviv.iot.spotifyapi.model;
 
+
 import com.opencsv.bean.CsvBindByName;
 
 
@@ -14,4 +15,6 @@ public class Album extends BaseModel{
 	private String name;
 	@CsvBindByName(column = "date")
 	private String date;
+	@CsvBindByName(column = "artistId")
+	private int artistId;
 }

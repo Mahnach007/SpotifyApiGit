@@ -14,7 +14,5 @@ public class Label extends BaseModel{
 	private String name;
 	@CsvBindByName(column = "date")
 	private String date;
-	@CsvBindByName(column = "labelCreator")
-	private String labelCreator;
 	
 }

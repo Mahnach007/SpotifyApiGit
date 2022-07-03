@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.spotifyapi.model.Song;
+import ua.lviv.iot.spotifyapi.model.Text;
 
 @Service
 public interface SongService {
@@ -17,4 +18,6 @@ public interface SongService {
 	Boolean updateSong(long id, Song song);
 
 	Boolean deleteSong(long id);
+
+	Text getSongText(long id);
 }
