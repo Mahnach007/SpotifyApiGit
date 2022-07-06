@@ -23,4 +23,7 @@
 hs_err_pid*
 /target/
 
-**/.DS_Store
+.DS_Store
+src/main/.DS_Store
+bin/.DS_Store
+

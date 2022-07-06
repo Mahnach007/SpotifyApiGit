@@ -1,23 +1,18 @@
 package ua.lviv.iot.spotifyapi.repository;
 
-
 import java.io.IOException;
 
-
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.springframework.stereotype.Repository;
 
 import ua.lviv.iot.spotifyapi.model.Album;
-import ua.lviv.iot.spotifyapi.model.Song;
-
 
 @Repository
-public class AlbumRepositoryImpl  extends BaseCSVRepository<Album> implements AlbumRepository {
-	
+public class AlbumRepositoryImpl extends BaseCSVRepository<Album> implements AlbumRepository {
+
 	public AlbumRepositoryImpl() throws IOException {
-		super("album",  new String [] {"id", "name", "date"}, Album.class);
+		super("album", new String[] { "id", "name", "date" }, Album.class);
 	}
 
 	@Override
@@ -32,13 +27,17 @@ public class AlbumRepositoryImpl  extends BaseCSVRepository<Album> implements Al
 		recreateDataSourceIfNewDay();
 		return entities.get(id);
 	}
-	
+
 	@Override
 	public ArrayList<Album> getAlbumsByArtist(long id) {
 		recreateDataSourceIfNewDay();
-		Collection<Album> albumValues = entities.values();
-		albumValues.removeIf(p -> p.getArtistId() != id);
-		return new ArrayList<>(albumValues);
+		ArrayList<Album> albums = new ArrayList<Album>();
+		for (Album album : entities.values()) {
+			if (album.getArtistId() == id) {
+				albums.add(album);
+			}
+		}
+		return albums;
 	}
 
 	@Override
@@ -77,15 +76,15 @@ public class AlbumRepositoryImpl  extends BaseCSVRepository<Album> implements Al
 			}
 
 		} else {
-		writeCSVHeadersToFile(filePath);
-			
+			writeCSVHeadersToFile(filePath);
+
 		}
 		return true;
 	}
 
 	@Override
 	public Boolean updateAlbum(long id, Album album) {
-		
+
 		recreateDataSourceIfNewDay();
 
 		if (entities.containsKey(id)) {

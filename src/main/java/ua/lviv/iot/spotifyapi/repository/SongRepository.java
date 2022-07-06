@@ -10,17 +10,17 @@ import ua.lviv.iot.spotifyapi.model.Song;
 
 @Repository
 public interface SongRepository {
-	 Song addSong(Song song);
+	Song addSong(Song song);
 
-	 ArrayList<Song> getAllSongs();
+	ArrayList<Song> getAllSongs();
 
-	 Song getSong(long id);
+	Song getSong(long id);
 
-	 Boolean updateSong(long id, Song song) throws IOException;
+	Boolean updateSong(long id, Song song) throws IOException;
 
-	 Boolean deleteSong(long id) throws IOException;
-	 
-	 long getLastEntityId();
+	Boolean deleteSong(long id) throws IOException;
 
-	 ArrayList<Song> getSongsByAlbum(long id);
+	long getLastEntityId();
+
+	ArrayList<Song> getSongsByAlbum(long id);
 }

@@ -31,16 +31,16 @@ public abstract class BaseCSVRepository<T extends BaseModel> {
 	protected String updateDate;
 	private String entityName;
 	private String[] entityHeaders;
-	private Class <T> enityClass;
+	private Class<T> enityClass;
 
 	final private String filesFolderPath = "src/main/resources/csvFiles/";
 
-	public BaseCSVRepository(String newEntityName,String[] newEntityHeaders, Class <T> newEnityClass) throws IOException {
-		
+	public BaseCSVRepository(String newEntityName, String[] newEntityHeaders, Class<T> newEnityClass)
+			throws IOException {
 		entityName = newEntityName;
 		entityHeaders = newEntityHeaders;
 		enityClass = newEnityClass;
-		
+
 		try {
 			if (!createFile(LocalDate.now().toString())) {
 				readCSV();
@@ -52,9 +52,9 @@ public abstract class BaseCSVRepository<T extends BaseModel> {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	
+
 	}
-	
+
 	public long getLastEntityId() {
 		if (entities.isEmpty()) {
 			return 0;
@@ -66,7 +66,6 @@ public abstract class BaseCSVRepository<T extends BaseModel> {
 		HeaderColumnNameMappingStrategy<T> ms = new HeaderColumnNameMappingStrategy<>();
 		ms.setType(enityClass);
 		String upToDateFilePath = String.format("%s%s-%s.csv", filesFolderPath, entityName, updateDate);
-		System.out.println(upToDateFilePath);
 		CsvToBean<T> bean = new CsvToBeanBuilder<T>(new FileReader(upToDateFilePath)).withMappingStrategy(ms)
 				.withIgnoreLeadingWhiteSpace(true).build();
 		List<T> list = bean.parse();
@@ -79,7 +78,8 @@ public abstract class BaseCSVRepository<T extends BaseModel> {
 		Collection<T> entitiesCollection = entities.values();
 
 		Writer fw = new FileWriter(filePath);
-		StatefulBeanToCsv<T> sbc = new StatefulBeanToCsvBuilder<T>(fw).withSeparator(CSVWriter.DEFAULT_SEPARATOR).build();
+		StatefulBeanToCsv<T> sbc = new StatefulBeanToCsvBuilder<T>(fw).withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+				.build();
 
 		try {
 			sbc.write(entitiesCollection.stream());
@@ -118,16 +118,16 @@ public abstract class BaseCSVRepository<T extends BaseModel> {
 		String currentDate = LocalDate.now().toString();
 		if (!updateDate.equals(currentDate)) {
 			try {
-				
+
 				createCSV(currentDate);
-		
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			entities.clear();
-			
+
 		}
-	
+
 	}
 
 }

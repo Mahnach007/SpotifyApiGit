@@ -3,19 +3,17 @@ package ua.lviv.iot.spotifyapi.repository;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.springframework.stereotype.Repository;
 
-import ua.lviv.iot.spotifyapi.model.Song;
 import ua.lviv.iot.spotifyapi.model.Text;
 
 @Repository
 public class TextRepositoryImpl extends BaseCSVRepository<Text> implements TextRepository {
 
 	public TextRepositoryImpl() throws IOException {
-		super( "text",new String[] { "id", "name", "lyrics" }, Text.class );
-	
+		super("text", new String[] { "id", "name", "lyrics" }, Text.class);
+
 	}
 
 	@Override
@@ -30,7 +28,7 @@ public class TextRepositoryImpl extends BaseCSVRepository<Text> implements TextR
 		recreateDataSourceIfNewDay();
 		return entities.get(id);
 	}
-	
+
 	@Override
 	public Text getTextBySong(long id) {
 		recreateDataSourceIfNewDay();

@@ -2,7 +2,6 @@ package ua.lviv.iot.spotifyapi.servise;
 
 import java.io.IOException;
 
-
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.spotifyapi.model.Album;
 import ua.lviv.iot.spotifyapi.model.Artist;
-import ua.lviv.iot.spotifyapi.model.Song;
 import ua.lviv.iot.spotifyapi.repository.AlbumRepository;
 import ua.lviv.iot.spotifyapi.repository.ArtistRepository;
 
@@ -21,12 +19,12 @@ public class ArtistsServiceImpl implements ArtistsService {
 
 	@Autowired
 	private ArtistRepository artistRepository;
-	
+
 	@Autowired
 	private AlbumRepository albumRepository;
 
 	private long idCounter = 1L;
-	
+
 	@PostConstruct
 	public void init() {
 		idCounter = artistRepository.getLastEntityId();
@@ -48,6 +46,7 @@ public class ArtistsServiceImpl implements ArtistsService {
 	public Artist getArtist(long id) {
 		return artistRepository.getArtist(id);
 	}
+
 	@Override
 	public ArrayList<Album> getArtistAlbums(long id) {
 		return albumRepository.getAlbumsByArtist(id);
@@ -55,7 +54,7 @@ public class ArtistsServiceImpl implements ArtistsService {
 
 	@Override
 	public Boolean updateArtist(long id, Artist artist) {
-
+		artist.setId(id);
 		Boolean ifExist = false;
 		try {
 			ifExist = artistRepository.updateArtist(id, artist);

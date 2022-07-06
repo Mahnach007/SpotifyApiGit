@@ -53,7 +53,7 @@ public class AlbumServiceImpl implements AlbumService {
 
 	@Override
 	public Boolean updateAlbum(long id, Album album) {
-
+		album.setId(id);
 		Boolean ifExist = false;
 
 		try {

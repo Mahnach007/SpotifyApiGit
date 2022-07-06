@@ -24,6 +24,7 @@ public class TextServiceImpl implements TextService {
 	public void init() {
 		idCounter = textRepository.getLastEntityId();
 	}
+
 	@Override
 	public Text createText(Text Text) {
 		Text.setId(++idCounter);
@@ -43,7 +44,7 @@ public class TextServiceImpl implements TextService {
 
 	@Override
 	public Boolean updateText(long id, Text text) {
-
+		text.setId(id);
 		Boolean ifExist = false;
 
 		try {

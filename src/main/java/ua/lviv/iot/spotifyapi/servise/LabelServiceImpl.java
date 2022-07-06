@@ -2,7 +2,6 @@ package ua.lviv.iot.spotifyapi.servise;
 
 import java.io.IOException;
 
-
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.spotifyapi.model.Artist;
 import ua.lviv.iot.spotifyapi.model.Label;
-import ua.lviv.iot.spotifyapi.model.Song;
 import ua.lviv.iot.spotifyapi.repository.ArtistRepository;
 import ua.lviv.iot.spotifyapi.repository.LabelRepository;
 
@@ -21,12 +19,12 @@ public class LabelServiceImpl implements LabelService {
 
 	@Autowired
 	private LabelRepository labelRepository;
-	
+
 	@Autowired
 	private ArtistRepository artistRepository;
-	
+
 	private long idCounter = 1L;
-	
+
 	@PostConstruct
 	public void init() {
 		idCounter = labelRepository.getLastEntityId();
@@ -48,6 +46,7 @@ public class LabelServiceImpl implements LabelService {
 	public Label getLabel(long id) {
 		return labelRepository.getLabel(id);
 	}
+
 	@Override
 	public ArrayList<Artist> getLabelArtists(long id) {
 		return artistRepository.getArtistsByLabel(id);
@@ -55,7 +54,7 @@ public class LabelServiceImpl implements LabelService {
 
 	@Override
 	public Boolean updateLabel(long id, Label label) {
-
+		label.setId(id);
 		Boolean ifExist = false;
 
 		try {

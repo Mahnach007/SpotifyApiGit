@@ -7,21 +7,19 @@ import org.springframework.stereotype.Service;
 import ua.lviv.iot.spotifyapi.model.Album;
 import ua.lviv.iot.spotifyapi.model.Song;
 
-
 @Service
 public interface AlbumService {
-	
-	 Album createAlbum(Album album);
 
-	 ArrayList<Album> getAllAlbums();
+	Album createAlbum(Album album);
 
-	 Album getAlbum(long id);
+	ArrayList<Album> getAllAlbums();
 
-	 Boolean updateAlbum(long id, Album albumEntity);
+	Album getAlbum(long id);
 
-	 Boolean deleteAlbum(long id);
+	Boolean updateAlbum(long id, Album albumEntity);
 
-	 ArrayList<Song> getAlbumSongs(long id);
-	
-	
+	Boolean deleteAlbum(long id);
+
+	ArrayList<Song> getAlbumSongs(long id);
+
 }

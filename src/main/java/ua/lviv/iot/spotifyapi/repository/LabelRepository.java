@@ -6,21 +6,20 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
-import ua.lviv.iot.spotifyapi.model.Artist;
 import ua.lviv.iot.spotifyapi.model.Label;
 
 @Repository
 public interface LabelRepository {
-	 Label addLabel(Label label);
+	Label addLabel(Label label);
 
-	 ArrayList<Label> getAllLabels();
+	ArrayList<Label> getAllLabels();
 
-	 Label getLabel(long id);
+	Label getLabel(long id);
 
-	 Boolean updateLabel(long id, Label label) throws IOException;
+	Boolean updateLabel(long id, Label label) throws IOException;
 
-	 Boolean deleteLabel(long id) throws IOException;
-	 
-	 long getLastEntityId();
+	Boolean deleteLabel(long id) throws IOException;
+
+	long getLastEntityId();
 
 }

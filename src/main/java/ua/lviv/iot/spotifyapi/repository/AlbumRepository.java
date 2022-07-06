@@ -10,17 +10,17 @@ import ua.lviv.iot.spotifyapi.model.Album;
 
 @Repository
 public interface AlbumRepository {
-	 ArrayList<Album> getAllAlbums();
+	ArrayList<Album> getAllAlbums();
 
-	 Album getAlbum(long id);
+	Album getAlbum(long id);
 
-	 Boolean updateAlbum(long id, Album album) throws IOException;
+	Boolean updateAlbum(long id, Album album) throws IOException;
 
-	 Boolean deleteAlbum(long id) throws IOException;
+	Boolean deleteAlbum(long id) throws IOException;
 
-	 Album addAlbum(Album album);
-	 
-	 long getLastEntityId();
+	Album addAlbum(Album album);
 
-	 ArrayList<Album> getAlbumsByArtist(long id);
+	long getLastEntityId();
+
+	ArrayList<Album> getAlbumsByArtist(long id);
 }

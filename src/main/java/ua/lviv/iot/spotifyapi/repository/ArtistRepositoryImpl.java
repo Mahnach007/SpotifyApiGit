@@ -2,9 +2,7 @@ package ua.lviv.iot.spotifyapi.repository;
 
 import java.io.IOException;
 
-
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +12,8 @@ import ua.lviv.iot.spotifyapi.model.Artist;
 public class ArtistRepositoryImpl extends BaseCSVRepository<Artist> implements ArtistRepository {
 
 	public ArtistRepositoryImpl() throws IOException {
-		super("artist",  new String[] { "id", "age", "name", "artistLabel" }, Artist.class);
-		
+		super("artist", new String[] { "id", "age", "name", "artistLabel" }, Artist.class);
+
 	}
 
 	public ArrayList<Artist> getAllArtists() {
@@ -28,15 +26,18 @@ public class ArtistRepositoryImpl extends BaseCSVRepository<Artist> implements A
 		recreateDataSourceIfNewDay();
 		return entities.get(id);
 	}
-	
+
 	@Override
 	public ArrayList<Artist> getArtistsByLabel(long id) {
 		recreateDataSourceIfNewDay();
-		Collection<Artist> artistValues = entities.values();
-		artistValues.removeIf(p -> p.getLabelId() != id);
-		return new ArrayList<>(artistValues);
+		ArrayList<Artist> artists = new ArrayList<Artist>();
+		for (Artist artist : entities.values()) {
+			if (artist.getLabelId() == id) {
+				artists.add(artist);
+			}
+		}
+		return artists;
 	}
-	
 
 	public Artist addArtist(Artist artist) {
 

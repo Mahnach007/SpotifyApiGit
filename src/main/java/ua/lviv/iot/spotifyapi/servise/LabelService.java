@@ -2,7 +2,6 @@ package ua.lviv.iot.spotifyapi.servise;
 
 import java.util.ArrayList;
 
-
 import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.spotifyapi.model.Artist;

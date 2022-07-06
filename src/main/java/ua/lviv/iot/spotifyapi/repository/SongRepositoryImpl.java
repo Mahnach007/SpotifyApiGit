@@ -2,13 +2,10 @@ package ua.lviv.iot.spotifyapi.repository;
 
 import java.io.IOException;
 
-
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.springframework.stereotype.Repository;
 
-import ua.lviv.iot.spotifyapi.model.Album;
 import ua.lviv.iot.spotifyapi.model.Song;
 
 @Repository
@@ -16,7 +13,7 @@ public class SongRepositoryImpl extends BaseCSVRepository<Song> implements SongR
 
 	public SongRepositoryImpl() throws IOException {
 		super("song", new String[] { "id", "name", "artist", "date" }, Song.class);
-	
+
 	}
 
 	@Override
@@ -31,13 +28,17 @@ public class SongRepositoryImpl extends BaseCSVRepository<Song> implements SongR
 		recreateDataSourceIfNewDay();
 		return entities.get(id);
 	}
-	
+
 	@Override
 	public ArrayList<Song> getSongsByAlbum(long id) {
 		recreateDataSourceIfNewDay();
-		Collection<Song> songValues = entities.values();
-		songValues.removeIf(p -> p.getAlbumId() != id);
-		return new ArrayList<>(songValues);
+		ArrayList<Song> songs = new ArrayList<Song>();
+		for (Song song : entities.values()) {
+			if (song.getAlbumId() == id) {
+				songs.add(song);
+			}
+		}
+		return songs;
 	}
 
 	@Override

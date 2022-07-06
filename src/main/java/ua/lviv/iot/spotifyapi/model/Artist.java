@@ -2,7 +2,6 @@ package ua.lviv.iot.spotifyapi.model;
 
 import com.opencsv.bean.CsvBindByName;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,7 @@ public class Artist extends BaseModel {
 	private String name;
 	@CsvBindByName(column = "age")
 	private int age;
-	@CsvBindByName(column = "albumId")
+	@CsvBindByName(column = "labelId")
 	private int labelId;
 
 }
